@@ -7,8 +7,13 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
+<<<<<<< HEAD
 <project name="ltudjava-18hcb-18424062-bt1" default="default" basedir=".">
     <description>Builds, tests, and runs the project ltudjava-18hcb-18424062-bt1.</description>
+=======
+<project name="JavaApplication1" default="default" basedir=".">
+    <description>Builds, tests, and runs the project JavaApplication1.</description>
+>>>>>>> 634e82c71f446cfde509d4b9e3b5c2de4e14a85d
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -58,7 +63,11 @@
 
     An example of overriding the target for project execution could look like this:
 
+<<<<<<< HEAD
         <target name="run" depends="ltudjava-18hcb-18424062-bt1-impl.jar">
+=======
+        <target name="run" depends="JavaApplication1-impl.jar">
+>>>>>>> 634e82c71f446cfde509d4b9e3b5c2de4e14a85d
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
