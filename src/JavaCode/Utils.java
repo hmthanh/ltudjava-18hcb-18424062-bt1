@@ -24,7 +24,7 @@ public class Utils {
     public Utils() {
 
     }
-
+    public static final String COMMA_DELIMITER = ",";
     public static String getRootUrl() {
         Path path = FileSystems.getDefault().getPath(".").toAbsolutePath();
 

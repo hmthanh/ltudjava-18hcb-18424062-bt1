@@ -5,18 +5,24 @@
  */
 package JavaForm;
 
+import Entities.Account;
+import Entities.Student;
+import JavaCode.CSVReader;
 import JavaCode.Utils;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author sieus
  */
-public class Login extends javax.swing.JFrame {
+public class FormLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public FormLogin() {
         initComponents();
     }
 
@@ -44,11 +50,6 @@ public class Login extends javax.swing.JFrame {
         jbtnLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnLogin.setText("Login");
         jbtnLogin.setName("Login"); // NOI18N
-        jbtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtnLoginMouseClicked(evt);
-            }
-        });
         jbtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnLoginActionPerformed(evt);
@@ -111,25 +112,21 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnLoginMouseClicked
-        // TODO add your handling code here:
-        String root = Utils.getRootUrl();
-        System.out.println(root);
-
-    }//GEN-LAST:event_jbtnLoginMouseClicked
-
     private void jbtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
         // TODO add your handling code here:
-        String username = jlabel_Username.getText();
-        String password = jlabel_Password.getText();
+        String username = jtext_Username.getText();
+        String password = jtext_Password.getText();        
+        Boolean hasPermit = checkLogin(username, password);
         
-        this.setVisible(false);
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        if (hasPermit){
+            this.setVisible(false);
+            java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainForm().setVisible(true);
-            }
-        });
+                    new MainForm().setVisible(true);
+                }
+            });
+        }
+        
     }//GEN-LAST:event_jbtnLoginActionPerformed
 
     private void jtext_UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtext_UsernameActionPerformed
@@ -153,20 +150,23 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new FormLogin().setVisible(true);
             }
         });
     }
@@ -178,4 +178,19 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jtext_Password;
     private javax.swing.JTextField jtext_Username;
     // End of variables declaration//GEN-END:variables
+
+    private Boolean checkLogin(String username, String password) {
+        CSVReader reader = new CSVReader();
+        List<Account> data = reader.readCSV("/Data/Account/Account.csv", new Account());
+        for (int i = 0; i < data.size(); i++) {
+            Boolean trueUsername = data.get(i).getUserName().equals(username);
+            Boolean truePassword = data.get(i).getPassword().equals(password);
+            
+            if (trueUsername && truePassword){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

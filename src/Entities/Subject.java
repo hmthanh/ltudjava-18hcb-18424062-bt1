@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import JavaCode.Utils;
 import java.util.List;
 
 /**
@@ -76,4 +77,12 @@ public class Subject {
         
         return new Subject(subID, name, room);
     }
+
+    @Override
+    public String toString() {
+        String spliter = Utils.COMMA_DELIMITER;
+        return this.getSubID() + spliter + this.getName() + spliter + this.getRoom();
+    }
+    
+    
 }

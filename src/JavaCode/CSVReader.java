@@ -23,8 +23,10 @@ import java.util.List;
 public class CSVReader<T> {
     public static final String COMMA_DELIMITER = ",";
     public List<T> readCSV(String fileName, T type){
+        String rootUrl = Utils.getRootUrl();
         List<List<String>> records = new ArrayList<List<String>>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        String strAbsolutePath = rootUrl + fileName;
+        try (BufferedReader br = new BufferedReader(new FileReader(strAbsolutePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 
@@ -35,7 +37,6 @@ public class CSVReader<T> {
         catch (IOException e){
             e.printStackTrace();    
         }
-        
         List<T> result = new ArrayList<T>();
         for (int i = 0; i < records.size(); i++) {
             List<String> metaData = records.get(i);

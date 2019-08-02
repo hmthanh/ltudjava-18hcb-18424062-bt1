@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import JavaCode.Utils;
 import java.util.List;
 
 /**
@@ -133,4 +134,11 @@ public class Score {
         return new Score(stdID, name, middleExam, finalExam, plusExam, avgScore);
     }
 
+    @Override
+    public String toString() {
+        String spliter = Utils.COMMA_DELIMITER;
+        return this.getStdID()+ spliter + this.getName() + spliter + this.getMidleExam().toString() + spliter + this.getFinalExam().toString() + spliter + this.getPlusExam() + spliter + this.getAvgScore();
+    }
+
+    
 }

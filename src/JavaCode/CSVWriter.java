@@ -10,7 +10,9 @@ import Entities.Score;
 import Entities.Student;
 import Entities.Subject;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,42 +22,22 @@ import java.util.List;
  *
  * @author sieus
  */
-public class CSVReader<T> {
+public class CSVWriter<T> {
     public static final String COMMA_DELIMITER = ",";
-    public List<T> readCSV(String fileName, T type){
-        List<List<String>> records = new ArrayList<List<String>>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                
-                String[] values = line.split(COMMA_DELIMITER);
-                records.add(Arrays.asList(values));
+    public Boolean writeCSV(String fileName, T type, List<T> data){
+        String rootUrl = Utils.getRootUrl();
+        String strAbsolutePath = rootUrl + fileName;
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(strAbsolutePath))) {
+            for (int i = 0; i < data.size(); i++) {
+                String line = data.get(i).toString();
+                br.write(line);
             }
         }
         catch (IOException e){
-            e.printStackTrace();    
+            return false;
         }
         
-        List<T> result = new ArrayList<T>();
-        for (int i = 0; i < records.size(); i++) {
-            List<String> metaData = records.get(i);
-            Object item = null;
-            if (type instanceof Student){
-                item = Student.readFromMetaData(metaData);
-            }
-            if (type instanceof Account){
-                item = Account.readFromMetaData(metaData);
-            }
-            if (type instanceof Score){
-                item = Score.readFromMetaData(metaData);
-            }
-            if (type instanceof Subject){
-                item = Subject.readFromMetaData(metaData);
-            }
-            result.add((T) item);
-        }
-        
-        return result;
+        return true;
     }
     
     

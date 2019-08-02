@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import JavaCode.Utils;
 import java.util.List;
 
 /**
@@ -57,4 +58,13 @@ public class Account {
         
         return new Account(userName, password);
     }
+
+    @Override
+    public String toString() {
+        String spliter = Utils.COMMA_DELIMITER;
+        return this.getUserName()+ spliter + this.getPassword();
+    }
+    
+    
+    
 }

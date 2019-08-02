@@ -5,6 +5,13 @@
  */
 package JavaForm;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileSystemView;
+
 /**
  *
  * @author sieus
@@ -28,7 +35,7 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         frmStudent = new javax.swing.JFrame();
-        jPanel1 = new javax.swing.JPanel();
+        frmDesktop = new javax.swing.JDesktopPane();
         jMenuBar = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuItemOpen = new javax.swing.JMenuItem();
@@ -55,22 +62,34 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frmMainForm"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1200, 800));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+        javax.swing.GroupLayout frmDesktopLayout = new javax.swing.GroupLayout(frmDesktop);
+        frmDesktop.setLayout(frmDesktopLayout);
+        frmDesktopLayout.setHorizontalGroup(
+            frmDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 738, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+        frmDesktopLayout.setVerticalGroup(
+            frmDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 504, Short.MAX_VALUE)
         );
 
         menuHome.setText("File");
         menuHome.setActionCommand("Home");
 
         menuItemOpen.setText("Open file");
+        menuItemOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemOpenActionPerformed(evt);
+            }
+        });
         menuHome.add(menuItemOpen);
 
         menuItemSaveFile.setText("Save file");
@@ -81,13 +100,17 @@ public class MainForm extends javax.swing.JFrame {
         menuHome.add(menuItemPassword);
 
         jMenuBar.add(menuHome);
-        menuHome.getAccessibleContext().setAccessibleName("File");
 
         menuStudent.setText("Student");
         menuStudent.setToolTipText("");
 
-        menuItemListAll.setText("List all");
+        menuItemListAll.setText("Student");
         menuItemListAll.setActionCommand("Load ");
+        menuItemListAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemListAllActionPerformed(evt);
+            }
+        });
         menuStudent.add(menuItemListAll);
 
         jMenuItem1.setText("jMenuItem1");
@@ -98,6 +121,11 @@ public class MainForm extends javax.swing.JFrame {
         menuScore.setText("Score");
 
         menuItemScore.setText("Score");
+        menuItemScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemScoreActionPerformed(evt);
+            }
+        });
         menuScore.add(menuItemScore);
 
         jMenuBar.add(menuScore);
@@ -105,6 +133,11 @@ public class MainForm extends javax.swing.JFrame {
         menuTimetable.setText("Timetable");
 
         menuItemTimetable.setText("Timetable");
+        menuItemTimetable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTimetableActionPerformed(evt);
+            }
+        });
         menuTimetable.add(menuItemTimetable);
 
         jMenuBar.add(menuTimetable);
@@ -115,15 +148,66 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(frmDesktop)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(frmDesktop, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void menuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemOpenActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        int returnValue = jfc.showOpenDialog(null);
+        // int returnValue = jfc.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = jfc.getSelectedFile();
+                System.out.println(selectedFile.getAbsolutePath());
+        }
+    }//GEN-LAST:event_menuItemOpenActionPerformed
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:        
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void menuItemListAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListAllActionPerformed
+        // TODO add your handling code here:
+        frmDesktop.removeAll();
+        FormStudent frm = new FormStudent();
+        int frmWidth = this.getWidth();
+        int frmHeight = this.getHeight();
+        frm.setSize(frmWidth, frmHeight);
+        frmDesktop.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuItemListAllActionPerformed
+
+    private void menuItemScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemScoreActionPerformed
+        // TODO add your handling code here:
+        frmDesktop.removeAll();
+        FormScore frm = new FormScore();
+        int frmWidth = this.getWidth();
+        int frmHeight = this.getHeight();
+        frm.setSize(frmWidth, frmHeight);
+        frmDesktop.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuItemScoreActionPerformed
+
+    private void menuItemTimetableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTimetableActionPerformed
+        // TODO add your handling code here:
+        frmDesktop.removeAll();
+        FormTimetable frm = new FormTimetable();
+        int frmWidth = this.getWidth();
+        int frmHeight = this.getHeight();
+        frm.setSize(frmWidth, frmHeight);
+        frmDesktop.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuItemTimetableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,10 +245,10 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane frmDesktop;
     private javax.swing.JFrame frmStudent;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuHome;
     private javax.swing.JMenuItem menuItemListAll;
     private javax.swing.JMenuItem menuItemOpen;
