@@ -7,6 +7,7 @@ package JavaForm;
 
 import Entities.Student;
 import JavaCode.CSVReader;
+import JavaCode.ComboxItem;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -15,12 +16,12 @@ import javax.swing.table.TableModel;
  *
  * @author sieus
  */
-public class FormStudent extends javax.swing.JInternalFrame {
+public class FormTimetable extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmStudent
      */
-    public FormStudent() {
+    public FormTimetable() {
         initComponents();
     }
 
@@ -38,6 +39,8 @@ public class FormStudent extends javax.swing.JInternalFrame {
         tableData = new javax.swing.JTable();
         combClass = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        combSubject = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -81,6 +84,16 @@ public class FormStudent extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Lớp học");
 
+        combSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combSubject.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combSubjectItemStateChanged(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Môn học");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -90,12 +103,17 @@ public class FormStudent extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(combClass, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addComponent(jLabel1)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel2))
+                            .addComponent(combClass, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,8 +126,12 @@ public class FormStudent extends javax.swing.JInternalFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(combClass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(combClass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(combSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,12 +155,13 @@ public class FormStudent extends javax.swing.JInternalFrame {
 
     private String[] columnNames = {"STT", "MSSV", "Họ tên", "Gới tính", "CMND"};
     public String[] classNames = {"18HCB", "17HCB"};
+    public String[] subjectName = {"Java", "Mạng máy tính", "Kiểm chứng phần mềm", "Thiết kế giao diện"};
 
-    public void LoadStudentToTable(Integer classID) {
+    public void LoadDataToTable(Integer classID, String subjID) {
         // TODO add your handling code here:
         CSVReader reader = new CSVReader();
         Student std = new Student();
-        List<Student> data = reader.readCSV("/Data/Student/" + classNames[classID] + ".csv", std);
+        List<Student> data = reader.readCSV("/Data/Classes/" + classNames[classID] + "-" + subjID + ".csv", std);
         String[][] dataTable = new String[data.size()][5];
         for (int i = 0; i < data.size(); i++) {
             dataTable[i] = data.get(i).toStringData(Integer.toString(i));
@@ -149,29 +172,59 @@ public class FormStudent extends javax.swing.JInternalFrame {
         tableData.setModel(table);
     }
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        LoadStudentToTable(1);
+//        LoadDataToTable(1);
         combClass.removeAllItems();
+        
         combClass.addItem(classNames[0]);
         combClass.addItem(classNames[1]);
+        combClass.setSelectedIndex(0);
+        
+        Integer classID = combClass.getSelectedIndex();
+        combSubject.removeAllItems();
+        if (classID == 0){
+            combSubject.addItem(subjectName[0]);
+            combSubject.addItem(subjectName[1]);
+        }else{
+            combSubject.addItem(subjectName[2]);
+            combSubject.addItem(subjectName[3]);
+        }
 
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void combClassItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combClassItemStateChanged
         // TODO add your handling code here:
         Integer classID = combClass.getSelectedIndex();
+        combSubject.removeAllItems();
+        String subID = "";
+        if (classID == 0){
+            combSubject.addItem(subjectName[0]);
+            combSubject.addItem(subjectName[1]);
+            subID = "01";
+        }else{
+            combSubject.addItem(subjectName[2]);
+            combSubject.addItem(subjectName[3]);
+            subID = "02";
+        }
+        
         if (classID >= 0) {
             System.out.println(Integer.toString(classID));
-            LoadStudentToTable(classID);
+            LoadDataToTable(classID, subID);
         }
 
     }//GEN-LAST:event_combClassItemStateChanged
+
+    private void combSubjectItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combSubjectItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combSubjectItemStateChanged
     private static void main(String[] args) {
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combClass;
+    private javax.swing.JComboBox<String> combSubject;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableData;

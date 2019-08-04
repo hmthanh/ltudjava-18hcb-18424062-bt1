@@ -15,12 +15,12 @@ import javax.swing.table.TableModel;
  *
  * @author sieus
  */
-public class FormStudent extends javax.swing.JInternalFrame {
+public class FormScore extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmStudent
      */
-    public FormStudent() {
+    public FormScore() {
         initComponents();
     }
 
