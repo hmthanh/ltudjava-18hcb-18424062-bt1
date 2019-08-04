@@ -7,12 +7,42 @@ package Entities;
 
 import JavaCode.Utils;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author sieus
  */
 public class Account {
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this._userName);
+        hash = 79 * hash + Objects.hashCode(this._password);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Account other = (Account) obj;
+        if (!Objects.equals(this._userName, other._userName)) {
+            return false;
+        }
+        if (!Objects.equals(this._password, other._password)) {
+            return false;
+        }
+        return true;
+    }
     private String _userName;
     private String _password;
 
@@ -53,6 +83,9 @@ public class Account {
     }
     
     public static Account readFromMetaData(List<String> metaData){
+        if(metaData.size() <= 0){
+            return new Account();
+        }
         String userName = metaData.get(0);
         String password = metaData.get(1);
         
@@ -65,6 +98,8 @@ public class Account {
         return this.getUserName()+ spliter + this.getPassword();
     }
     
-    
+    public static String getString(){
+        return "Account";
+    }
     
 }

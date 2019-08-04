@@ -6,21 +6,21 @@
 package JavaForm;
 
 import Entities.Student;
-import JavaCode.CSVReader;
+import JavaCode.CSVWriter;
+import JavaCode.Utils;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author sieus
  */
-public class FormStudent extends javax.swing.JInternalFrame {
+public class FormAddStudent extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmStudent
      */
-    public FormStudent() {
+    public FormAddStudent() {
         initComponents();
     }
 
@@ -34,10 +34,17 @@ public class FormStudent extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableData = new javax.swing.JTable();
-        combClass = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        cmbClass = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        txtStdID = new javax.swing.JTextField();
+        jlabel_Username = new javax.swing.JLabel();
+        jlabel_Password = new javax.swing.JLabel();
+        jlabel_Password1 = new javax.swing.JLabel();
+        jlabel_Password2 = new javax.swing.JLabel();
+        jlabel_Password3 = new javax.swing.JLabel();
+        cmbGender = new javax.swing.JComboBox<>();
+        txtCardID = new javax.swing.JTextField();
+        txtFullname = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -58,72 +65,144 @@ public class FormStudent extends javax.swing.JInternalFrame {
             }
         });
 
-        tableData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tableData);
-
-        combClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        combClass.addItemListener(new java.awt.event.ItemListener() {
+        cmbClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbClass.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                combClassItemStateChanged(evt);
+                cmbClassItemStateChanged(evt);
+            }
+        });
+        cmbClass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbClassMouseClicked(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Lớp học");
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton1.setText("Thêm sinh viên");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        txtStdID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStdIDActionPerformed(evt);
+            }
+        });
+
+        jlabel_Username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Username.setText("Mã số sinh viên");
+        jlabel_Username.setToolTipText("");
+
+        jlabel_Password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Password.setText("CMND");
+        jlabel_Password.setToolTipText("");
+
+        jlabel_Password1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Password1.setText("Giới tính");
+        jlabel_Password1.setToolTipText("");
+
+        jlabel_Password2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Password2.setText("Họ và tên");
+        jlabel_Password2.setToolTipText("");
+
+        jlabel_Password3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Password3.setText("Lớp học");
+        jlabel_Password3.setToolTipText("");
+
+        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGender.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbGenderItemStateChanged(evt);
+            }
+        });
+        cmbGender.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbGenderMouseClicked(evt);
+            }
+        });
+
+        txtCardID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCardIDActionPerformed(evt);
+            }
+        });
+
+        txtFullname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFullnameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(combClass, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jLabel1)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlabel_Password2)
+                            .addComponent(jlabel_Password1)
+                            .addComponent(jlabel_Username)
+                            .addComponent(jlabel_Password3)
+                            .addComponent(jlabel_Password))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtStdID, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbClass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCardID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbGender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(combClass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Password3)
+                    .addComponent(cmbClass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Username)
+                    .addComponent(txtStdID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Password2)
+                    .addComponent(txtFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Password1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Password)
+                    .addComponent(txtCardID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -131,49 +210,87 @@ public class FormStudent extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String[] columnNames = {"STT", "MSSV", "Họ tên", "Gới tính", "CMND"};
-    public String[] classNames = {"18HCB", "17HCB"};
+    private final String[] strGender = {"Nam", "Nữ"};
+    public static List<String> classNames = Utils.listAllCSVFile(Student.getString());
 
-    public void LoadStudentToTable(Integer classID) {
-        // TODO add your handling code here:
-        CSVReader reader = new CSVReader();
-        Student std = new Student();
-        List<Student> data = reader.readCSV("/Data/Student/" + classNames[classID] + ".csv", std);
-        String[][] dataTable = new String[data.size()][5];
-        for (int i = 0; i < data.size(); i++) {
-            dataTable[i] = data.get(i).toStringData(Integer.toString(i));
-        }
-        TableModel table;
-        table = new DefaultTableModel(dataTable, columnNames);
-        tableData.removeAll();
-        tableData.setModel(table);
-    }
+
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        LoadStudentToTable(1);
-        combClass.removeAllItems();
-        combClass.addItem(classNames[0]);
-        combClass.addItem(classNames[1]);
-
+        cmbGender.removeAllItems();
+        cmbGender.addItem(strGender[0]);
+        cmbGender.addItem(strGender[1]);
+        cmbClass.removeAllItems();
+        for (int i = 0; i < classNames.size(); i++) {
+            cmbClass.addItem(classNames.get(i));
+        }
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void combClassItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combClassItemStateChanged
+    private void txtStdIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStdIDActionPerformed
         // TODO add your handling code here:
-        Integer classID = combClass.getSelectedIndex();
-        if (classID >= 0) {
-            System.out.println(Integer.toString(classID));
-            LoadStudentToTable(classID);
+    }//GEN-LAST:event_txtStdIDActionPerformed
+
+    private void cmbClassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbClassMouseClicked
+        // TODO add your handling code here:
+        classNames = Utils.listAllCSVFile(Student.getString());
+        cmbClass.removeAllItems();
+        for (int i = 0; i < classNames.size(); i++) {
+            cmbClass.addItem(classNames.get(i));
         }
+    }//GEN-LAST:event_cmbClassMouseClicked
 
-    }//GEN-LAST:event_combClassItemStateChanged
-    private static void main(String[] args) {
+    private void cmbClassItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbClassItemStateChanged
+        // TODO add your handling code here:
 
-    }
+    }//GEN-LAST:event_cmbClassItemStateChanged
+
+    private void cmbGenderItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbGenderItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGenderItemStateChanged
+
+    private void cmbGenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbGenderMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGenderMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String stdID = txtStdID.getText();
+        String fullName = txtFullname.getText();
+        String gender = cmbGender.getSelectedItem().toString();
+        String IDCard = txtCardID.getText();
+
+        String className = cmbClass.getSelectedItem().toString();
+        Student std = new Student("", stdID, fullName, gender, IDCard);
+        String fileName = "/Data/Student/" + className + ".csv";
+        CSVWriter writer = new CSVWriter();
+        Boolean isS = writer.addItem(fileName, std);
+        if (isS) {
+            JOptionPane.showMessageDialog(null, "Thành công", "Thêm sinh viên thành công !", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Thất bại", "Thêm sinh viên thất bại !", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtCardIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCardIDActionPerformed
+
+    private void txtFullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFullnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFullnameActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> combClass;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cmbClass;
+    private javax.swing.JComboBox<String> cmbGender;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tableData;
+    private javax.swing.JLabel jlabel_Password;
+    private javax.swing.JLabel jlabel_Password1;
+    private javax.swing.JLabel jlabel_Password2;
+    private javax.swing.JLabel jlabel_Password3;
+    private javax.swing.JLabel jlabel_Username;
+    private javax.swing.JTextField txtCardID;
+    private javax.swing.JTextField txtFullname;
+    private javax.swing.JTextField txtStdID;
     // End of variables declaration//GEN-END:variables
 }

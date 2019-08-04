@@ -7,6 +7,7 @@ package JavaForm;
 
 import Entities.Student;
 import JavaCode.CSVReader;
+import JavaCode.Utils;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -77,6 +78,11 @@ public class FormStudent extends javax.swing.JInternalFrame {
                 combClassItemStateChanged(evt);
             }
         });
+        combClass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                combClassMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Lớp học");
@@ -119,7 +125,7 @@ public class FormStudent extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,14 +137,14 @@ public class FormStudent extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String[] columnNames = {"STT", "MSSV", "Họ tên", "Gới tính", "CMND"};
-    public String[] classNames = {"18HCB", "17HCB"};
+    private final String[] columnNames = {"STT", "MSSV", "Họ tên", "Gới tính", "CMND"};
+    public static List<String> classNames = Utils.listAllCSVFile(Student.getString());
 
     public void LoadStudentToTable(Integer classID) {
         // TODO add your handling code here:
         CSVReader reader = new CSVReader();
         Student std = new Student();
-        List<Student> data = reader.readCSV("/Data/Student/" + classNames[classID] + ".csv", std);
+        List<Student> data = reader.readCSV("/Data/Student/" + classNames.get(classID) + ".csv", std);
         String[][] dataTable = new String[data.size()][5];
         for (int i = 0; i < data.size(); i++) {
             dataTable[i] = data.get(i).toStringData(Integer.toString(i));
@@ -151,24 +157,35 @@ public class FormStudent extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         LoadStudentToTable(1);
         combClass.removeAllItems();
-        combClass.addItem(classNames[0]);
-        combClass.addItem(classNames[1]);
-
+        for (int i = 0; i < classNames.size(); i++) {
+            combClass.addItem(classNames.get(i));
+        }
     }//GEN-LAST:event_formInternalFrameOpened
+    public void updateComb() {
+        this.combClass.removeAllItems();
+        for (int i = 0; i < classNames.size(); i++) {
+            this.combClass.addItem(classNames.get(i));
+        }
+    }
 
     private void combClassItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combClassItemStateChanged
         // TODO add your handling code here:
         Integer classID = combClass.getSelectedIndex();
         if (classID >= 0) {
-            System.out.println(Integer.toString(classID));
             LoadStudentToTable(classID);
         }
 
     }//GEN-LAST:event_combClassItemStateChanged
-    private static void main(String[] args) {
 
-    }
-
+    private void combClassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combClassMouseClicked
+        // TODO add your handling code here:
+        classNames = Utils.listAllCSVFile(Student.getString());
+        combClass.removeAllItems();
+        for (int i = 0; i < classNames.size(); i++) {
+            combClass.addItem(classNames.get(i));
+        }
+    }//GEN-LAST:event_combClassMouseClicked
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combClass;
     private javax.swing.JLabel jLabel1;

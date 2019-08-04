@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -22,12 +23,54 @@ import java.util.List;
  */
 public class Student {
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this._no);
+        hash = 59 * hash + Objects.hashCode(this._stdID);
+        hash = 59 * hash + Objects.hashCode(this._fullName);
+        hash = 59 * hash + Objects.hashCode(this._gender);
+        hash = 59 * hash + Objects.hashCode(this._IDCard);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Student other = (Student) obj;
+        if (!Objects.equals(this._no, other._no)) {
+            return false;
+        }
+        if (!Objects.equals(this._stdID, other._stdID)) {
+            return false;
+        }
+        if (!Objects.equals(this._fullName, other._fullName)) {
+            return false;
+        }
+        if (!Objects.equals(this._gender, other._gender)) {
+            return false;
+        }
+        if (!Objects.equals(this._IDCard, other._IDCard)) {
+            return false;
+        }
+        return true;
+    }
+    
+    private String _no;
     private String _stdID;
     private String _fullName;
     private String _gender;
     private String _IDCard;
 
-    public Student(String stdID, String fullName, String gender, String IDCard) {
+    public Student(String no, String stdID, String fullName, String gender, String IDCard) {
         this._stdID = stdID;
         this._fullName = fullName;
         this._gender = gender;
@@ -35,6 +78,7 @@ public class Student {
     }
 
     public Student() {
+        this._no = "";
         this._stdID = "";
         this._fullName = "";
         this._gender = "";
@@ -94,15 +138,11 @@ public class Student {
         this._IDCard = _IDCard;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public String toString() {
         String spliter = Utils.COMMA_DELIMITER;
-        return this.getStdID()+ spliter + this.getFullName()+ spliter + this.getGender() + spliter + this.getIDCard();
+        return this._no + spliter + this.getStdID()+ spliter + this.getFullName()+ spliter + this.getGender() + spliter + this.getIDCard();
     }
     
     public String[] toStringData(String id){
@@ -117,12 +157,34 @@ public class Student {
     }
 
     public static Student readFromMetaData(List<String> metaData) {
-        String stdID = metaData.get(0);
-        String fullName = metaData.get(1);
-        String gender = metaData.get(2);
-        String IDCard = metaData.get(3);
+        if(metaData.size() <= 0){
+            return new Student();
+        }
+        String no = metaData.get(0);
+        String stdID = metaData.get(1);
+        String fullName = metaData.get(2);
+        String gender = metaData.get(3);
+        String IDCard = metaData.get(4);
 
         // create and return book of this metadata
-        return new Student(stdID, fullName, gender, IDCard);
+        return new Student(no, stdID, fullName, gender, IDCard);
+    }
+    
+    public static String getString(){
+        return "Student";
+    }
+
+    /**
+     * @return the _no
+     */
+    public String getNo() {
+        return _no;
+    }
+
+    /**
+     * @param _no the _no to set
+     */
+    public void setNo(String _no) {
+        this._no = _no;
     }
 }

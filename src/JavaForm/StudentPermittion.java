@@ -5,23 +5,16 @@
  */
 package JavaForm;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.filechooser.FileSystemView;
-
 /**
  *
  * @author sieus
  */
-public class MainForm extends javax.swing.JFrame {
+public class StudentPermittion extends javax.swing.JFrame {
 
     /**
      * Creates new form MainForm
      */
-    public MainForm() {
+    public StudentPermittion() {
         initComponents();
     }
 
@@ -39,15 +32,9 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuItemOpen = new javax.swing.JMenuItem();
-        menuItemSaveFile = new javax.swing.JMenuItem();
         menuItemPassword = new javax.swing.JMenuItem();
-        menuStudent = new javax.swing.JMenu();
-        menuItemListAll = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         menuScore = new javax.swing.JMenu();
         menuItemScore = new javax.swing.JMenuItem();
-        menuTimetable = new javax.swing.JMenu();
-        menuItemTimetable = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout frmStudentLayout = new javax.swing.GroupLayout(frmStudent.getContentPane());
         frmStudent.getContentPane().setLayout(frmStudentLayout);
@@ -62,7 +49,6 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frmMainForm"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -74,17 +60,18 @@ public class MainForm extends javax.swing.JFrame {
         frmDesktop.setLayout(frmDesktopLayout);
         frmDesktopLayout.setHorizontalGroup(
             frmDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 738, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         frmDesktopLayout.setVerticalGroup(
             frmDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGap(0, 779, Short.MAX_VALUE)
         );
 
-        menuHome.setText("File");
+        menuHome.setText("Trang chủ");
         menuHome.setActionCommand("Home");
 
-        menuItemOpen.setText("Open file");
+        menuItemOpen.setText("Đăng xuất");
+        menuItemOpen.setToolTipText("");
         menuItemOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemOpenActionPerformed(evt);
@@ -92,35 +79,20 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuHome.add(menuItemOpen);
 
-        menuItemSaveFile.setText("Save file");
-        menuHome.add(menuItemSaveFile);
-
-        menuItemPassword.setText("Change Password");
+        menuItemPassword.setText("Đổi mật khẩu");
         menuItemPassword.setToolTipText("");
+        menuItemPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPasswordActionPerformed(evt);
+            }
+        });
         menuHome.add(menuItemPassword);
 
         jMenuBar.add(menuHome);
 
-        menuStudent.setText("Student");
-        menuStudent.setToolTipText("");
+        menuScore.setText("Điểm số");
 
-        menuItemListAll.setText("Student");
-        menuItemListAll.setActionCommand("Load ");
-        menuItemListAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemListAllActionPerformed(evt);
-            }
-        });
-        menuStudent.add(menuItemListAll);
-
-        jMenuItem1.setText("jMenuItem1");
-        menuStudent.add(jMenuItem1);
-
-        jMenuBar.add(menuStudent);
-
-        menuScore.setText("Score");
-
-        menuItemScore.setText("Score");
+        menuItemScore.setText("Điểm số");
         menuItemScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemScoreActionPerformed(evt);
@@ -129,18 +101,6 @@ public class MainForm extends javax.swing.JFrame {
         menuScore.add(menuItemScore);
 
         jMenuBar.add(menuScore);
-
-        menuTimetable.setText("Timetable");
-
-        menuItemTimetable.setText("Timetable");
-        menuItemTimetable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemTimetableActionPerformed(evt);
-            }
-        });
-        menuTimetable.add(menuItemTimetable);
-
-        jMenuBar.add(menuTimetable);
 
         setJMenuBar(jMenuBar);
 
@@ -158,39 +118,24 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void menuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemOpenActionPerformed
         // TODO add your handling code here:
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        int returnValue = jfc.showOpenDialog(null);
-        // int returnValue = jfc.showSaveDialog(null);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = jfc.getSelectedFile();
-                System.out.println(selectedFile.getAbsolutePath());
-        }
+        this.setVisible(false);
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormLogin().setVisible(true);
+        });
     }//GEN-LAST:event_menuItemOpenActionPerformed
-    
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:        
-        
-    }//GEN-LAST:event_formWindowOpened
 
-    private void menuItemListAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListAllActionPerformed
-        // TODO add your handling code here:
-        frmDesktop.removeAll();
-        FormStudent frm = new FormStudent();
-        int frmWidth = this.getWidth();
-        int frmHeight = this.getHeight();
-        frm.setSize(frmWidth, frmHeight);
-        frmDesktop.add(frm);
-        frm.setVisible(true);
-    }//GEN-LAST:event_menuItemListAllActionPerformed
+    }//GEN-LAST:event_formWindowOpened
 
     private void menuItemScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemScoreActionPerformed
         // TODO add your handling code here:
         frmDesktop.removeAll();
-        FormScore frm = new FormScore();
+        FormStudentScore frm = new FormStudentScore();
         int frmWidth = this.getWidth();
         int frmHeight = this.getHeight();
         frm.setSize(frmWidth, frmHeight);
@@ -198,16 +143,17 @@ public class MainForm extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_menuItemScoreActionPerformed
 
-    private void menuItemTimetableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTimetableActionPerformed
+    private void menuItemPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPasswordActionPerformed
         // TODO add your handling code here:
-        frmDesktop.removeAll();
-        FormTimetable frm = new FormTimetable();
-        int frmWidth = this.getWidth();
-        int frmHeight = this.getHeight();
-        frm.setSize(frmWidth, frmHeight);
-        frmDesktop.add(frm);
-        frm.setVisible(true);
-    }//GEN-LAST:event_menuItemTimetableActionPerformed
+        this.setVisible(false);
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormChangePassword().setVisible(true);
+        });
+    }//GEN-LAST:event_menuItemPasswordActionPerformed
+    public static FormStudent _frmStudent = new FormStudent();
+    public static FormScore _frmScore = new FormScore();
+    public static FormSubject _frmSubject = new FormSubject();
+    public static FormTimetable _frmTimetable = new FormTimetable();
 
     /**
      * @param args the command line arguments
@@ -226,21 +172,26 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentPermittion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentPermittion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentPermittion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentPermittion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new StudentPermittion().setVisible(true);
         });
     }
 
@@ -248,16 +199,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JDesktopPane frmDesktop;
     private javax.swing.JFrame frmStudent;
     private javax.swing.JMenuBar jMenuBar;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuHome;
-    private javax.swing.JMenuItem menuItemListAll;
     private javax.swing.JMenuItem menuItemOpen;
     private javax.swing.JMenuItem menuItemPassword;
-    private javax.swing.JMenuItem menuItemSaveFile;
     private javax.swing.JMenuItem menuItemScore;
-    private javax.swing.JMenuItem menuItemTimetable;
     private javax.swing.JMenu menuScore;
-    private javax.swing.JMenu menuStudent;
-    private javax.swing.JMenu menuTimetable;
     // End of variables declaration//GEN-END:variables
 }

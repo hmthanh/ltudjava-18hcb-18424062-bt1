@@ -6,23 +6,21 @@
 package JavaForm;
 
 import Entities.Account;
-import Entities.Student;
 import JavaCode.CSVReader;
-import JavaCode.Utils;
+import JavaCode.CSVWriter;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author sieus
  */
-public class FormLogin extends javax.swing.JFrame {
+public class FormChangePassword extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public FormLogin() {
+    public FormChangePassword() {
         initComponents();
     }
 
@@ -36,19 +34,30 @@ public class FormLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jbtnLogin = new javax.swing.JButton();
-        jtext_Username = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jlabel_Username = new javax.swing.JLabel();
         jlabel_Password = new javax.swing.JLabel();
-        jtext_Password = new javax.swing.JPasswordField();
+        txtPassword2 = new javax.swing.JPasswordField();
+        txtPassword1 = new javax.swing.JPasswordField();
+        jlabel_Password1 = new javax.swing.JLabel();
+        txtOld = new javax.swing.JPasswordField();
+        jlabel_Password2 = new javax.swing.JLabel();
+        jlabel_Username1 = new javax.swing.JLabel();
+        cmbPermit = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Form");
         setLocation(new java.awt.Point(300, 300));
         setName("frmLogin"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jbtnLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbtnLogin.setText("Login");
+        jbtnLogin.setText("Đăng nhập");
         jbtnLogin.setName("Login"); // NOI18N
         jbtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,82 +65,163 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
-        jtext_Username.addActionListener(new java.awt.event.ActionListener() {
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtext_UsernameActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
 
         jlabel_Username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jlabel_Username.setText("Username");
+        jlabel_Username.setText("Tên đăng nhập");
         jlabel_Username.setToolTipText("");
 
         jlabel_Password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jlabel_Password.setText("Password");
+        jlabel_Password.setText("Nhập lại mật khẩu");
         jlabel_Password.setToolTipText("");
 
-        jtext_Password.setToolTipText("");
+        txtPassword2.setToolTipText("");
+
+        txtPassword1.setToolTipText("");
+
+        jlabel_Password1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Password1.setText("Mật khẩu mới");
+        jlabel_Password1.setToolTipText("");
+
+        txtOld.setToolTipText("");
+
+        jlabel_Password2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Password2.setText("Mật khẩu cũ");
+        jlabel_Password2.setToolTipText("");
+
+        jlabel_Username1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlabel_Username1.setText("Quyền hạn");
+        jlabel_Username1.setToolTipText("");
+
+        cmbPermit.setEditable(true);
+        cmbPermit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmbPermit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(88, 88, 88))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jlabel_Username)
+                                .addComponent(jlabel_Password1)
+                                .addComponent(jlabel_Password)
+                                .addComponent(jlabel_Password2))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtOld)
+                                .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                .addComponent(txtPassword1)
+                                .addComponent(txtPassword2))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlabel_Username, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlabel_Password, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jlabel_Username1)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtext_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtext_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(106, 106, 106))))
+                        .addComponent(cmbPermit, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtext_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPermit, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlabel_Username1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlabel_Username))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Password2)
+                    .addComponent(txtOld, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel_Password1)
+                    .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlabel_Password)
-                    .addComponent(jtext_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                    .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        cmbPermit.removeAllItems();
+        cmbPermit.addItem("Sinh viên");
+        cmbPermit.addItem("Giáo vụ");
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
     private void jbtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
         // TODO add your handling code here:
-        String username = jtext_Username.getText();
-        String password = jtext_Password.getText();        
-        Boolean hasPermit = checkLogin(username, password);
-        
-        if (hasPermit){
+        String username = txtUsername.getText();
+        String old = txtOld.getText();
+        String password1 = txtPassword1.getText();
+        String password2 = txtPassword2.getText();
+        if (!password1.equals(password2)) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập không thành công", "Vui lòng xem lại mật khẩu\n\"Tài khoản hoặc mật khẩu không đúng\"", JOptionPane.INFORMATION_MESSAGE);
+            txtPassword2.setText("");
+            txtPassword1.setText("");
+            txtOld.setText("");
+            txtUsername.setText("");
+            return;
+        }
+        String permit = cmbPermit.getSelectedIndex() == 0 ? "Student" : "Admin";
+
+        CSVReader<Account> reader = new CSVReader<>();
+        String filename = "/Data/Account/" + permit + ".csv";
+        List<Account> data = reader.readCSV(filename, new Account());
+        Boolean hasPermit = false;
+        Account acc = new Account();
+        for (int i = 0; i < data.size(); i++) {
+            acc = data.get(i);
+            Boolean trueUsername = acc.getUserName().equals(username);
+            Boolean truePassword = acc.getPassword().equals(old);
+
+            if (trueUsername && truePassword) {
+                hasPermit = true;
+                break;
+            }
+        }
+
+        if (!hasPermit) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập không thành công", "Vui lòng xem lại mật khẩu\n\"Tài khoản hoặc mật khẩu không đúng\"", JOptionPane.INFORMATION_MESSAGE);
+            txtPassword2.setText("");
+            txtPassword1.setText("");
+            txtOld.setText("");
+            txtUsername.setText("");
+        } else {
+            CSVWriter<Account> writer = new CSVWriter<>();
+            String fileName = "/Data/Account/" + permit + ".csv";
+            acc.setPassword(password2);
+            writer.update(fileName, data, acc);
             this.setVisible(false);
-            java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                    new MainForm().setVisible(true);
-                }
+            java.awt.EventQueue.invokeLater(() -> {
+                new AdminPermittion().setVisible(true);
             });
         }
-        
     }//GEN-LAST:event_jbtnLoginActionPerformed
-
-    private void jtext_UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtext_UsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtext_UsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,47 +240,54 @@ public class FormLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormChangePassword().setVisible(true);
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtnLogin;
-    private javax.swing.JLabel jlabel_Password;
-    private javax.swing.JLabel jlabel_Username;
-    private javax.swing.JPasswordField jtext_Password;
-    private javax.swing.JTextField jtext_Username;
-    // End of variables declaration//GEN-END:variables
-
-    private Boolean checkLogin(String username, String password) {
+    private Boolean checkLogin(String username, String password, String permit) {
         CSVReader reader = new CSVReader();
-        List<Account> data = reader.readCSV("/Data/Account/Account.csv", new Account());
+        List<Account> data = reader.readCSV("/Data/Account/" + permit + ".csv", new Account());
         for (int i = 0; i < data.size(); i++) {
             Boolean trueUsername = data.get(i).getUserName().equals(username);
             Boolean truePassword = data.get(i).getPassword().equals(password);
-            
-            if (trueUsername && truePassword){
+
+            if (trueUsername && truePassword) {
                 return true;
             }
         }
-        
         return false;
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbPermit;
+    private javax.swing.JButton jbtnLogin;
+    private javax.swing.JLabel jlabel_Password;
+    private javax.swing.JLabel jlabel_Password1;
+    private javax.swing.JLabel jlabel_Password2;
+    private javax.swing.JLabel jlabel_Username;
+    private javax.swing.JLabel jlabel_Username1;
+    private javax.swing.JPasswordField txtOld;
+    private javax.swing.JPasswordField txtPassword1;
+    private javax.swing.JPasswordField txtPassword2;
+    private javax.swing.JTextField txtUsername;
+    // End of variables declaration//GEN-END:variables
 }

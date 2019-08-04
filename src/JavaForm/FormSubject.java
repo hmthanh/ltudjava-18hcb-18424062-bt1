@@ -119,7 +119,7 @@ public class FormSubject extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +131,7 @@ public class FormSubject extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String[] columnNames = {"STT", "MSSV", "Họ tên", "Gới tính", "CMND"};
+    private final String[] columnNames = {"STT", "MSSV", "Họ tên", "Gới tính", "CMND"};
     public String[] classNames = {"18HCB", "17HCB"};
 
     public void LoadStudentToTable(Integer classID) {
@@ -165,9 +165,7 @@ public class FormSubject extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_combClassItemStateChanged
-    private static void main(String[] args) {
-
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combClass;
